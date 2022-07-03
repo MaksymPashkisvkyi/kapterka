@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'libs/modules/tabs/tabs.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/form.css' %}"/>
+
+<div>
+    <form action="{% url 'add_equipment' %}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+
+        <div class="form-group">
+            <label>Название</label>
+            <input type="text" class="form-control dark" name="name" id="leadInputField"
+                   placeholder="Terra Incognita Canyon 3 Alu">
+            <small class="form-text text-muted">Название, производитель и модель.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="categorySelect">Категория</label>
+            <select id="categorySelect">
+                {% for type in type_of_hike %}
+                <option value="{{ type }}" data-section="Вид туризма" name="type_of_hike"></option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Особенности</label>
+            <div class="form-outline">
+                <textarea class="form-control dark" name="description" id="textAreaExample" rows="4"
+                          placeholder="Описание"></textarea>
+            </div>
+            <small class="form-text text-muted">Отличительные свойства этого(-их) объекта(-ов).</small>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col input-number">
+                    <label>Количество</label>
+                </div>
+                <div class="input-number">
+                    <input type="number" name="number" min="0" max="100" step="1" value="1">
+                </div>
+                <small class="form-text text-muted">1 если объект уникален.</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Стоимость</label>
+            <div class="input-number">
+                <input type="number" name="price">
+            </div>
+
+            <label>Стоимость единицы в день</label>
+            <div class="input-number">
+                <input type="number" name="price_per_day">
+            </div>
+
+
+            <label>Стоимость единицы в день для членов клуба</label>
+            <div class="input-number">
+                <input type="number" name="price_for_members">
+            </div>
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Добавить</button>
+
+    </form>
+</div>
+
+
+<!-- _____________________________________________ SCRIPTS _____________________________________________ -->
+
+<script src="{% static 'libs/modules/jquery/jquery-ui.min.js' %}"></script>
+<script src="{% static 'libs/modules/multiselect/jquery.tree-multiselect.js' %}"></script>
+<script>
+  $("select#categorySelect").treeMultiselect({maxSelections: 3, enableSelectAll: true, unselectAllText: true});
+
+
+
+
+
+
+</script>
+<!-- 
+  let trees = $("select").treeMultiselect();
+let firstTree = trees[0];
+  $("select#id").append("<option value='newValue' data-section='New Section' selected='selected' data-description='New value'>New Value</option>");
+firstTree.reload();
+ -->
+{% endblock %}

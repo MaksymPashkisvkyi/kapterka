@@ -1,0 +1,24 @@
+#content {
+    background-color: #212529;
+    width: 100rem;
+}
+
+body {
+    background-color: #1b1f22;
+}
+
+.bg-dark {
+    background-color: #1c1f22 !important;
+}
+
+h2 {
+    color: white;
+}
+
+select {
+    max-width: 30rem;
+}
+
+input[type="text"] {
+    max-width: 30rem;
+}
