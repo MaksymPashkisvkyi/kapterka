@@ -2,17 +2,15 @@ from datetime import datetime
 from json import loads
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.views.generic import View, FormView
+from django.shortcuts import render
+from django.views.generic import View
 
-from .forms import AddEquipmentForm
 from .models import Contact
 from .models import Equipment
 from .models import GroupAccounting
 from .models import GroupComposition
 from .models import RentedEquipment
 from .models import UserAccounting
-from .models import TypeOfHike
 
 
 def base_context(request, **args):
@@ -118,108 +116,17 @@ class CreateUser(View):
 class AddEquipment(View):
     def get(self, request):
         context = base_context(
-            request, title='Добавить снаряжение', header='Добавить снаряжение')
-        contacts_list = get_all_contacts()
-        context['contacts_list'] = contacts_list
-        return render(request, "add_equpment.html", context)
+            request, title='Записать снар на группу', header='Запись снаряжения на группу')
+        return render(request, "add_equipment.html", context)
 
-
-# class AddEquipment(FormView):
-#     form_class = AddEquipmentForm
-#     template_name = 'add_equipment.html'
-#     success_url = '/add_equipment/'
-#
-#     def get(self, **kwargs):
-#         # TODO get in AddEquipment
-#         pass
-#
-#     def post(self, **kwargs):
-#         # TODO post in AddEquipment
-#         pass
-#
-#     def form_valid(self, form):
-#         # TODO form_valid in AddEquipment
-#         pass
-#
-#     def form_invalid(self, form):
-#         # TODO form_invalid in AddEquipment
-#         pass
-
-
-# def get(self, request):
-#     form = self.form_class()
-#     return render(request, self.template_name, {'form': form})
-#
-#     # type_of_hike = TypeOfHike.objects.all()
-#     # context = base_context(request, title='Добавить снаряжение', header='Добавить снаряжение',
-#     #                        type_of_hike=type_of_hike)
-#     #
-#     # return render(request, "add_equipment.html", context)
-#
-# def post(self, request):
-#     form = self.form_class(request.POST)
-#     if form.is_valid():
-#         # <process form cleaned data>
-#         return HttpResponseRedirect('/add_equipment')
-#
-#     return render(request, self.template_name, {'form': form})
-
-# if request.POST == "POST":
-#     form = AddEquipmentForm(request.POST)
-#     if form.is_valid():
-#         try:
-#             form.save()
-#             return redirect('/add_equipment')
-#         except:
-#             form.add_error(None, 'Ошибка добавления поста')
-# else:
-#     form = AddEquipmentForm()
-#
-# context = {
-#     'form': form
-# }
-#
-# return HttpResponseRedirect('/add_equipment')
-# return render(request, 'add_equipment.html', context=context)
-
-# if request.POST == "POST":
-#     form = request.POST
-# else:
-#     return HttpResponseRedirect("/add_equipment")
-#
-# name = form.get['name']
-# type_of_hike = form.get['type_of_hike']
-# description = form.get['description']
-# number = form.get['number']
-# price = form.get['price']
-# price_per_day = form.get['price_per_day']
-# price_for_members = form.get['price_for_members']
-#
-# if number == 1:
-#     unique = True
-# else:
-#     unique = False
-#
-# equipment = Equipment(
-#     name=name,
-#     type_of_hike=type_of_hike,
-#     unique=unique,
-#     description=description,
-#     number=number,
-#     price=price,
-#     price_per_day=price_per_day,
-#     price_for_members=price_for_members
-# )
-#
-# equipment.save()
-#
-# return HttpResponseRedirect("/add_equipment")
+    def post(self, request):
+        return HttpResponseRedirect("/")
 
 
 class AddGroupAccounting(View):
     def get(self, request):
         context = base_context(
-            request, title='Записать снар на группу', header='Запись снаряжения на группу')
+            request, title='Запись снаряжения на группу', header='Запись снаряжения на группу')
         contacts_list = get_all_contacts()
         eq_list = get_all_free_equipment()
         context['eq_list'] = eq_list
@@ -296,5 +203,3 @@ class AddUserAccounting(View):
 
         user_accounting.save()
         return HttpResponseRedirect("/")
-
-# Create your views here.
