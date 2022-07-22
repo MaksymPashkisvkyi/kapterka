@@ -1,4 +1,4 @@
-#!/home/maksym/PycharmProjects/KAPTYORKA-20220703T165546Z-001/KAPTYORKA/venv/bin/python3
+#!/home/maksym/Documents/projects/PycharmProjects/kapterka/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
